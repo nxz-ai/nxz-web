@@ -14,16 +14,16 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   @apply rounded-full
   inline-flex items-center justify-center gap-3
   px-8 py-4 
-  font-medium text-black
-  bg-teal-400 hover:bg-teal-300
+  font-medium text-white
+  bg-zinc-700 hover:bg-zinc-950
   transition-colors;
 }
 
 .btn-secondary {
   @apply rounded-full px-8 py-4 
   inline-flex items-center justify-center gap-3
-  font-medium text-teal-300 border border-teal-400 hover:border-teal-300
-  hover:bg-teal-300/5
+  font-medium text-black border border-zinc-700 hover:border-zinc-950
+  hover:bg-zinc-600/5
   transition-colors;
 } 
 
