@@ -15,9 +15,9 @@ export async function onRequestPost(context) {
     }
 
     // Send emails using a dedicated function
-    return await sendEmails({ name, email, company, message }, env);
+    const response = await sendEmails({ name, email, company, message }, env);
 
-    // return new Response(JSON.stringify({ success: true }), { status: 200 });
+    return new Response(JSON.stringify({ success: true, body: response }), { status: 200 });
   } catch (error) {
     console.error(error);
     return new Response(
