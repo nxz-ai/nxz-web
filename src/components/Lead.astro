@@ -5,28 +5,31 @@ import ArrowDiagonal from "../assets/ArrowDiagonal.astro";
 <!-- Lead Capture Section -->
 <section class="py-20 content-center" id="contact">
   <div class="container max-w-4xl mx-auto">
-    <div class="text-center mb-16">
-      <h2 class="text-5xl mb-8">Start Your AI Transformation</h2>
-      <p class="text-zinc-400 max-w-3xl mx-auto sm:text-xl">
-        Thank you for your interest in transforming your business with AI! We're excited to help you unlock new opportunities and drive innovation. Schedule a free consultation today to discover how AI can make a difference for your business.
-      </p>
-    </div>
+    
 
-    <form class="space-y-6" id="leadForm">
+    <form class="space-y-6" id="contactForm">
+      <div class="text-center mb-16">
+        <h2 class="text-5xl mb-8">Start Your AI Transformation</h2>
+        <p class="text-zinc-400 max-w-3xl mx-auto sm:text-xl">
+          Thank you for your interest in transforming your business with AI! We're excited to help you unlock new opportunities and drive innovation. Schedule a free consultation today to discover how AI can make a difference for your business.
+        </p>
+      </div>
       <div class="grid gap-6 sm:grid-cols-2">
         <div>
           <label class="block text-zinc-300 mb-2">Full Name</label>
           <input type="text" 
                  class="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-4 py-3
                         focus:border-teal-300 focus:ring-2 focus:ring-teal-300/20 outline-none transition"
-                 required>
+                 required
+                 name="name">
         </div>
         <div>
           <label class="block text-zinc-300 mb-2">Work Email</label>
           <input type="email" 
                  class="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-4 py-3
                         focus:border-teal-300 focus:ring-2 focus:ring-teal-300/20 outline-none transition"
-                 required>
+                 required
+                 name="email">
         </div>
       </div>
 
@@ -35,7 +38,8 @@ import ArrowDiagonal from "../assets/ArrowDiagonal.astro";
         <input type="text" 
                class="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-4 py-3
                       focus:border-teal-300 focus:ring-2 focus:ring-teal-300/20 outline-none transition"
-               required>
+               required
+               name="company">
       </div>
 
       <div>
@@ -44,6 +48,7 @@ import ArrowDiagonal from "../assets/ArrowDiagonal.astro";
           class="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-4 py-3
                  focus:border-teal-300 focus:ring-2 focus:ring-teal-300/20 outline-none transition h-32"
           placeholder="Describe your AI challenges or goals..."
+          name="message"
         ></textarea>
       </div>
 
@@ -58,8 +63,8 @@ import ArrowDiagonal from "../assets/ArrowDiagonal.astro";
 
     <!-- Thank You Message (Hidden by default) -->
     <div id="thankYouMessage" class="hidden text-center mt-8">
-      <h3 class="text-2xl font-bold text-teal-300 mb-4">Thank You!</h3>
-      <p class="text-zinc-400">
+      <h3 class="text-3xl font-bold text-teal-300 mb-4">Thank You!</h3>
+      <p class="text-zinc-400 sm:text-lg md:text-xl">
         We appreciate your interest and will be in touch shortly to schedule your consultation. In the meantime, feel free to explore more about our AI solutions and how they can benefit your business.
       </p>
     </div>
@@ -67,18 +72,56 @@ import ArrowDiagonal from "../assets/ArrowDiagonal.astro";
 </section>
 
 <script>
-  // Handle form submission
-  document.getElementById('leadForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+const contactForm = document.getElementById('contactForm')
+  
+if (contactForm) {
+  contactForm.addEventListener('submit', submitForm);
+}
     
-    // Simulate form submission (replace with actual submission logic)
-    console.log('Form submitted!');
-    
-    // Hide the form and show the thank you message
-    document.getElementById('leadForm').classList.add('hidden');
-    document.getElementById('thankYouMessage').classList.remove('hidden');
-    
-    // Reset the form (optional)
-    this.reset();
-  });
+async function submitForm(event) {
+  event.preventDefault();
+
+  // Client-side validation
+  const name = contactForm.elements.name.value.trim();
+  const email = contactForm.elements.email.value.trim();
+  const company = contactForm.elements.company.value.trim();
+  const message = contactForm.elements.message.value.trim();
+
+  if (!name || !email || !company || !message) {
+    alert('Please fill in all fields.');
+    return;
+  }
+
+  // Additional client-side email format validation (simple regex sample)
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    alert('Please enter a valid email address.');
+    return;
+  }
+
+  try {
+    // Replace the URL below with your deployed Cloudflare Worker URL
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name, email, company, message })
+    });
+    const data = await response.json();
+
+    if (data.success) {
+      document.getElementById('contactForm').reset();
+      document.getElementById('contactForm').classList.add('hidden');
+      document.getElementById('thankYouMessage').classList.remove('hidden');
+
+    } else {
+      alert(data.error || 'There was an error sending your message. Please try again later.');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('There was an error sending your message. Please try again later.');
+  }
+}
+
 </script>
