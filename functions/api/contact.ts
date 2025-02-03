@@ -15,9 +15,9 @@ export async function onRequestPost(context) {
     }
 
     // Send emails using a dedicated function
-    await sendEmails({ name, email, company, message }, env);
+    return await sendEmails({ name, email, company, message }, env);
 
-    return new Response(JSON.stringify({ success: true }), { status: 200 });
+    // return new Response(JSON.stringify({ success: true }), { status: 200 });
   } catch (error) {
     console.error(error);
     return new Response(
@@ -64,11 +64,13 @@ async function sendEmails({ name, email, company, message }, env) {
     message: ${message}`
   });
 
-  fetch(mailgunApiUrl, {
+  return await fetch(mailgunApiUrl, {
     method: 'POST',
     headers: { Authorization: authHeader },
     body: adminEmailData,
   });
+
+
 
   // Send both emails concurrently
   // await Promise.all([
