@@ -1,7 +1,3 @@
-import { EmailMessage } from "cloudflare:email";
-import { createMimeMessage } from "mimetext";
-
-
 export async function onRequestPost(context) {
   const { request, env } = context;
 
@@ -53,29 +49,38 @@ function validateFormData({ name, email, company, message }) {
  * Sends one email to the admin and one thank-you email to the user.
  */
 async function sendEmails({ name, email, company, message }, env) {
+  const mailgunApiUrl = `https://api.mailgun.net/v3/nxz.ai/messages`;
+  const authHeader = `Basic ${btoa(`api:${env.MAILGUN_API_KEY}`)}`;
 
-
-  const msg = createMimeMessage();
-   msg.setSender({ name: "NXZ Contact", addr: "contact@nxz.ai" });
-   msg.setRecipient("calmlikemoon@gmail.com");
-   msg.setSubject(`NXZ Contact Form Submission from ${name}`);
-   msg.addMessage({
-       contentType: 'text/plain',
-       data: `You received a new message from NXZ 
+  // Prepare email data for the admin
+  const adminEmailData = new URLSearchParams({
+    from: `NXZ <noreply@nxz.ai>`,
+    to: 'nxzhello@gmail.com',
+    subject: `NXZ Contact Form Submission from ${name}`,
+    text: `You received a new message from NXZ 
     name: ${name}\n\n
     company: ${company}\n\n
     email: ${email}\n\n
     message: ${message}`
-   });
+  });
 
-   var message = new EmailMessage(
-     "contact@nxz.ai",
-     "calmlikemoon@gmail.com",
-     msg.asRaw()
-   );
-   try {
-     await env.SEB.send(message);
-   } catch (e) {
-     throw e
-   }
+  fetch(mailgunApiUrl, {
+    method: 'POST',
+    headers: { Authorization: authHeader },
+    body: adminEmailData,
+  });
+
+  // Send both emails concurrently
+  // await Promise.all([
+  //   fetch(mailgunApiUrl, {
+  //     method: 'POST',
+  //     headers: { Authorization: authHeader },
+  //     body: adminEmailData,
+  //   }),
+  //   fetch(mailgunApiUrl, {
+  //     method: 'POST',
+  //     headers: { Authorization: authHeader },
+  //     body: userEmailData,
+  //   }),
+  // ]);
 }
