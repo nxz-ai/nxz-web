@@ -16,16 +16,16 @@ import ArrowDiagonal from "../assets/ArrowDiagonal.astro";
       </div>
       <div class="grid gap-6 sm:grid-cols-2">
         <div>
-          <label class="block text-zinc-300 mb-2">Full Name</label>
-          <input type="text" 
+          <label for="name" class="block text-zinc-300 mb-2">Full Name</label>
+          <input id="name" type="text" 
                  class="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-4 py-3
                         focus:border-teal-300 focus:ring-2 focus:ring-teal-300/20 outline-none transition"
                  required
                  name="name">
         </div>
         <div>
-          <label class="block text-zinc-300 mb-2">Work Email</label>
-          <input type="email" 
+          <label for="email" class="block text-zinc-300 mb-2">Work Email</label>
+          <input id="email" type="email" 
                  class="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-4 py-3
                         focus:border-teal-300 focus:ring-2 focus:ring-teal-300/20 outline-none transition"
                  required
@@ -34,8 +34,8 @@ import ArrowDiagonal from "../assets/ArrowDiagonal.astro";
       </div>
 
       <div>
-        <label class="block text-zinc-300 mb-2">Company</label>
-        <input type="text" 
+        <label for="company" class="block text-zinc-300 mb-2">Company</label>
+        <input id="company" type="text" 
                class="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-4 py-3
                       focus:border-teal-300 focus:ring-2 focus:ring-teal-300/20 outline-none transition"
                required
@@ -43,8 +43,9 @@ import ArrowDiagonal from "../assets/ArrowDiagonal.astro";
       </div>
 
       <div>
-        <label class="block text-zinc-300 mb-2">How can we help?</label>
+        <label for="message" class="block text-zinc-300 mb-2">How can we help?</label>
         <textarea 
+          id="message"
           class="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg px-4 py-3
                  focus:border-teal-300 focus:ring-2 focus:ring-teal-300/20 outline-none transition h-32"
           placeholder="Describe your AI challenges or goals..."
