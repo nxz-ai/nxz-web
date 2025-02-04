@@ -23,7 +23,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   @apply rounded-full px-8 py-4 
   inline-flex items-center justify-center gap-3
   font-medium text-black border border-zinc-700 hover:border-zinc-950
-  hover:bg-zinc-600/5
+  hover:bg-zinc-500/5
   transition-colors;
 } 
 
