@@ -2,26 +2,22 @@
 import Logo from '../assets/logo.jpeg';
 ---
 
-<header id="header" role="banner">
-  <div class="flex items-start justify-between space-x-4 mt-4 mx-4">
-
-    <div>
-      <a href="/" class="flex gap-4 items-center" aria-label="Go to homepage">
-        <img id="logo" src={Logo.src} alt="NXZ Logo" fetchpriority="high" class="h-10" height="40" loading="eager"/>
+<header id="header" role="banner" class="flex justify-between space-x-4 mt-4 mx-8">
+  <div>
+    <a href="/" class="flex gap-4 items-center" aria-label="Go to homepage">
+      <img id="logo" src={Logo.src} alt="NXZ Logo" fetchpriority="high" class="h-10" height="40" loading="eager"/>
       <h1 class="text-zinc-100 text-2xl">NXZ.AI</h1>
-      </a>
-    </div>
-    
-    <nav role="navigation" aria-label="Main navigation">
-      <ul class="flex sm:space-x-6 
-      max-sm:flex-col max-sm:text-end
-      *:text-zinc-300 *:hover:text-teal-300 *:transition-colors">
-        <li><a href="/" aria-label="Go to homepage">Home</a></li>
-        <li><a href="#" aria-label="Learn more about us">About</a></li>
-        <!-- <li><a href="#" aria-label="Read our blog">Blog</a></li>  -->
-        <li><a href="/blog" aria-label="Contact us">Blog</a></li> 
-      </ul>
-    </nav>
-
+    </a>
   </div>
+  
+  <nav role="navigation" aria-label="Main navigation">
+    <ul class="flex sm:space-x-6 
+    max-sm:flex-col max-sm:text-end
+    *:text-zinc-300 *:hover:text-teal-300 *:transition-colors">
+      <li><a href="/" aria-label="Go to homepage">Home</a></li>
+      <li><a href="#" aria-label="Learn more about us">About</a></li>
+      <!-- <li><a href="#" aria-label="Read our blog">Blog</a></li>  -->
+      <li><a href="/blog" aria-label="Contact us">Blog</a></li> 
+    </ul>
+  </nav>
 </header>

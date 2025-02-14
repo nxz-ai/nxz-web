@@ -23,11 +23,12 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION, permalink, current }
 	<head>
 		<BaseHead title={title} description={description} permalink={permalink} />
 	</head>
-	<body class="bg-[#0C1015] text-zinc-100 px-8 xl:px-4">
+	<body class="bg-[#1a1e22] text-zinc-100">
 		<!-- Glow Effects -->
-		
 		<Header />
-		<slot />
+		<div class="px-8 xl:px-4">
+			<slot />
+		</div>
 		<Footer/>
 	</body>
 </html>
